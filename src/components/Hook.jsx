@@ -1,3 +1,4 @@
+import "../components-css/Hook.css";
 import { useState, useEffect} from "react";
 
 function Hook() {
@@ -9,7 +10,7 @@ function Hook() {
     //     console.log(`It's ${emotion} right now.`)
     // }, []);
     return (
-        <div>
+        <div className="Hook-div">
             <h1 className="Hook1">Current emotion is {emotion}.</h1>
             <button className="btn1" onClick={() => setEmotion("Sad")}>Sad</button>
             <button className="btn1" onClick={() => setEmotion("Excited")}>Excited</button>

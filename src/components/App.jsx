@@ -1,9 +1,10 @@
 import React from "react";
 import Hook from "./Hook";
+import "../components-css/App.css";
 
 function App() {
     return (
-        <div>
+        <div className="App-div">
             <h1>Hello</h1>
             <Hook />
         </div>
