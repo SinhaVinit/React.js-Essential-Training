@@ -1,20 +1,38 @@
 import "../components-css/Hook.css";
-// import { useState} from "react";
-import { useReducer } from "react";
+import { useRef } from "react";
 
 function Hook() {
-    // const [checked, setChecked] = useState(false);
-    const [checked, setChecked] = useReducer((checked) => !checked, false)
+    const txtTitle = useRef();
+    const hexColor = useRef();
+
+    const submit = (e) => {
+        e.preventDefault();
+        const title = txtTitle.current.value;
+        const color = hexColor.current.value;
+        alert(`${title}, ${color}`);
+        // After aleart to clear the input use this
+        txtTitle.current.value = "";
+        hexColor.current.value = "";
+    }
+
     return (
         <div>
-            <input 
-                type="checkbox"
-                value={checked}
-                onChange={setChecked}
-            />
-            <label>
-                {checked ? "Checked" : "Not Checked"}
-            </label>
+            <form onSubmit={submit}>
+                <input 
+                    ref={txtTitle}
+                    type="text"
+                    placeholder="Color Name.."
+                    required={true}
+                />
+                <input 
+                    ref={hexColor}
+                    type="color"
+
+                />
+                <button>
+                    Show
+                </button>
+            </form>
         </div>
     );
 }
