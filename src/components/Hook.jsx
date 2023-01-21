@@ -1,33 +1,30 @@
 import "../components-css/Hook.css";
-import { useRef } from "react";
+import { useState } from "react";
 
 function Hook() {
-    const txtTitle = useRef();
-    const hexColor = useRef();
-
+    const [text, setText] = useState("");
+    const [color, setColor] = useState("#000000");
     const submit = (e) => {
         e.preventDefault();
-        const title = txtTitle.current.value;
-        const color = hexColor.current.value;
-        alert(`${title}, ${color}`);
-        // After aleart to clear the input use this
-        txtTitle.current.value = "";
-        hexColor.current.value = "";
-    }
+        alert(`${text}, ${color}`);
+        setText("");
+        setColor("#000000");
+    };
 
     return (
         <div>
             <form onSubmit={submit}>
                 <input 
-                    ref={txtTitle}
+                    value={text}
+                    onChange={(event) => setText(event.target.value)}
                     type="text"
                     placeholder="Color Name.."
                     required={true}
                 />
                 <input 
-                    ref={hexColor}
+                    value={color}
+                    onChange={(event) => setColor(event.target.value)}
                     type="color"
-
                 />
                 <button>
                     Show
