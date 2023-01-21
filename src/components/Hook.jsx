@@ -1,12 +1,23 @@
 import "../components-css/Hook.css";
 import { useState } from "react";
 
+function useInput(initialValue) {
+    const [value, setValue] = useState(initialValue);
+    return [
+        {
+            value,
+            onChange: (e) => setValue(e.target.value)
+        },
+        () => setValue(initialValue)
+    ];
+}
+
 function Hook() {
-    const [text, setText] = useState("");
-    const [color, setColor] = useState("#000000");
+    const [text, setText] = useInput("");
+    const [color, setColor] = useInput("#000000");
     const submit = (e) => {
         e.preventDefault();
-        alert(`${text}, ${color}`);
+        alert(`${text.value}, ${color.value}`);
         setText("");
         setColor("#000000");
     };
@@ -15,15 +26,13 @@ function Hook() {
         <div>
             <form onSubmit={submit}>
                 <input 
-                    value={text}
-                    onChange={(event) => setText(event.target.value)}
+                    {...text}
                     type="text"
                     placeholder="Color Name.."
                     required={true}
                 />
                 <input 
-                    value={color}
-                    onChange={(event) => setColor(event.target.value)}
+                    {...color}
                     type="color"
                 />
                 <button>
