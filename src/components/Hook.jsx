@@ -13,22 +13,27 @@ function GitHubUser({ name, created_on, avatar }) {
 
 function Hook() {
   const [info, setInfo] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch(`https://api.github.com/users/SinhaVinit`)
       .then((response) => response.json())
-      .then((data) => setInfo(data));
-  }, []);
-  // Remember to add [] at the end of useEffect so that API will be requested only once.
-  if (info) {
-    return (
-      <GitHubUser
-        name={info.name}
-        created_on={info.created_at}
-        avatar={info.avatar_url}
-      />
-    );
-  }
-  return <h1>Data</h1>;
+      //   .then((data) => setInfo(data))
+      .then(setInfo)
+      .then(() => setLoading(false))
+      .catch(setError);
+  }, []); // Remember to add [] at the end of useEffect so that API will be requested only once.
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <pre>{JSON.stringify(error)}</pre>;
+  if (!info) return null;
+  return (
+    <GitHubUser
+      name={info.name}
+      created_on={info.created_at}
+      avatar={info.avatar_url}
+    />
+  );
 }
 
 export default Hook;
